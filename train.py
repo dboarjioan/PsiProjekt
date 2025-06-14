@@ -1,4 +1,4 @@
-from ppo import Agent, PygameVisualizer
+from klasy import Agent, PygameVisualizer
 import numpy as np
 import gymnasium as gym
 import torch as T
@@ -28,7 +28,7 @@ agent = Agent(
 )
 
 N = 10
-n_games = 200
+n_games = 100
 score_history = []
 best_score = -np.inf
 success_count = 0
@@ -79,7 +79,7 @@ for i in range(n_games):
             
         agent.last_position = position
 
-        if render and (i % 5 == 0):
+        if render:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     if visualizer:
