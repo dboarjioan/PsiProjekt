@@ -173,7 +173,7 @@ class PygameVisualizer:
     def __init__(self, width=800, height=500):
         pygame.init()
         self.screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption("MountainCarContinuous PPO")
+        pygame.display.set_caption("MountainCarContinuous - Model Demo")
         self.clock = pygame.time.Clock()
         self.width = width
         self.height = height
@@ -222,13 +222,13 @@ class PygameVisualizer:
         points = []
         for x in range(self.width):
             pos = -1.2 + (x / self.width) * (0.6 + 1.2)
-            y = np.sin(3 * pos) * 0.45 + 0.55
+            y = np.sin(2.5 * pos) * 0.45 + 0.55
             screen_y = self.height - 50 - int(y * (self.height - 150) / 1.0)
             points.append((x, screen_y))
         pygame.draw.lines(self.screen, (101, 67, 33), False, points, 12)
         
         goal_x = int((0.45 + 1.2) / 1.8 * self.width)
-        goal_y = self.height - 50 - int((np.sin(3 * 0.45) * 0.45 + 0.55) * (self.height - 150) / 1.0)
+        goal_y = self.height - 50 - int((np.sin(2.5 * 0.45) * 0.45 + 0.55) * (self.height - 150) / 1.0)
         pygame.draw.line(self.screen, (0, 0, 0), (goal_x, goal_y - 30), (goal_x, goal_y - 10), 3)
         pygame.draw.polygon(self.screen, (255, 0, 0), [
             (goal_x, goal_y - 30),
@@ -237,7 +237,7 @@ class PygameVisualizer:
         ])
         
         car_x = int((position + 1.2) / 1.8 * self.width)
-        track_y = np.sin(3 * position) * 0.45 + 0.55
+        track_y = np.sin(2.5 * position) * 0.45 + 0.55
         car_y = self.height - 50 - int(track_y * (self.height - 150) / 1.0)
         
         slope = 1.35 * math.cos(3 * position)
