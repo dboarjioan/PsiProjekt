@@ -157,14 +157,14 @@ class Agent:
 
         self.clear_memory()
 
-    def save_models(self, directory="modelsPath"):
+    def save_models(self, directory="/home/dorian/vsc/models"):
         if not os.path.exists(directory):
             os.makedirs(directory)
         T.save(self.actor.state_dict(), os.path.join(directory, 'actor.pth'))
         T.save(self.critic.state_dict(), os.path.join(directory, 'critic.pth'))
         print("Zapisano modele")
 
-    def load_models(self, directory="modelsPath"):
+    def load_models(self, directory="/home/dorian/vsc/models"):
         self.actor.load_state_dict(T.load(os.path.join(directory, 'actor.pth')))
         self.critic.load_state_dict(T.load(os.path.join(directory, 'critic.pth')))
         print("Wczytano modele")
@@ -210,7 +210,7 @@ class PygameVisualizer:
             pygame.draw.circle(self.cloud_surface, (255, 255, 255, 180), (x+15, 20), 25)
             pygame.draw.circle(self.cloud_surface, (255, 255, 255, 180), (x+30, 30), 20)
 
-    def render(self, position, velocity, frame_count):
+    def render(self, position, velocity, frame_count, func):
         self.screen.blit(self.background, (0, 0))
         
         cloud_offset = (frame_count // 2) % self.width
@@ -222,13 +222,13 @@ class PygameVisualizer:
         points = []
         for x in range(self.width):
             pos = -1.2 + (x / self.width) * (0.6 + 1.2)
-            y = np.sin(2.5 * pos) * 0.45 + 0.55
+            y = func(pos) * 0.45 + 0.55
             screen_y = self.height - 50 - int(y * (self.height - 150) / 1.0)
             points.append((x, screen_y))
         pygame.draw.lines(self.screen, (101, 67, 33), False, points, 12)
         
         goal_x = int((0.45 + 1.2) / 1.8 * self.width)
-        goal_y = self.height - 50 - int((np.sin(2.5 * 0.45) * 0.45 + 0.55) * (self.height - 150) / 1.0)
+        goal_y = self.height - 50 - int((func(0.45) * 0.45 + 0.55) * (self.height - 150) / 1.0)
         pygame.draw.line(self.screen, (0, 0, 0), (goal_x, goal_y - 30), (goal_x, goal_y - 10), 3)
         pygame.draw.polygon(self.screen, (255, 0, 0), [
             (goal_x, goal_y - 30),
@@ -237,7 +237,7 @@ class PygameVisualizer:
         ])
         
         car_x = int((position + 1.2) / 1.8 * self.width)
-        track_y = np.sin(2.5 * position) * 0.45 + 0.55
+        track_y = func(position) * 0.45 + 0.55
         car_y = self.height - 50 - int(track_y * (self.height - 150) / 1.0)
         
         slope = 1.35 * math.cos(3 * position)
