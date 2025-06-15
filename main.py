@@ -5,7 +5,7 @@ from gymnasium import spaces
 from gymnasium.envs.registration import register
 import pygame
 import torch as T
-from klasy import Agent, PygameVisualizer
+from ppo import Agent, PygameVisualizer
 
 class CustomMountainCarEnv(gym.Env):
     metadata = {"render_modes": ["human"], "render_fps": 30}
