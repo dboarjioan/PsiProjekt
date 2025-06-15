@@ -86,7 +86,7 @@ for i in range(n_games):
                         visualizer.close()
                     env.close()
                     exit()
-            visualizer.render(position, velocity, frame_count)
+            visualizer.render(position, velocity, frame_count, lambda x : np.sin(2*x)) #tutaj wstawiamy funkcje na ktorej trenujemy nasz model
 
         reward-=step_count*(0.0055)
         agent.remember(obs, action, prob, val, reward, done or truncated)
