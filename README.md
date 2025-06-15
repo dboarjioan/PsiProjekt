@@ -1,3 +1,5 @@
+Projekt na podstawy sztucznej inteligancji - Dorian Rząsa, Bartosz Zabdyr
+
 Projekt polega na stworzeniu agenta sztucznej inteligencji uczącego się jazdy w środowisku `MountainCar-v0`, korzystając z algorytmu Proximal Policy Optimization (PPO). Celem agenta jest nauczenie się efektywnego manewrowania, aby dojechać do celu.
 
 
