@@ -1,4 +1,4 @@
-from klasy import Agent, PygameVisualizer
+from ppo import Agent, PygameVisualizer
 import numpy as np
 import gymnasium as gym
 import torch as T
